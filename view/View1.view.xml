@@ -1,0 +1,13 @@
+<mvc:View controllerName="fcl.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page">
+    <subHeader>
+        <Bar >
+            <contentRight>
+                <Button text="Navigate to Middel Column" press="onNav" id="midView"></Button>
+            </contentRight>
+        </Bar>
+    </subHeader>
+    </Page>
+</mvc:View>
