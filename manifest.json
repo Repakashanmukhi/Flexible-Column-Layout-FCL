@@ -67,6 +67,9 @@
                 "dataSource": "mainService",
                 "preload": true,
                 "settings": {}
+            },
+            "Detail":{
+                "type": "sap.ui.model.json.JSONModel"    
             }
         },
         "resources": {

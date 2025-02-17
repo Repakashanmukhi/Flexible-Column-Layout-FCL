@@ -4,10 +4,49 @@
     <Page id="pages">
     <subHeader>
         <Bar >
+            <contentLeft>
+                <Title text="Employee Emergency Contact" ></Title>
+            </contentLeft>
             <contentRight>
-                <Text text="Hi Welcome to Flexible Column Layout" ></Text>
+                <Button icon="sap-icon://add" press="onOpenDialog"></Button>
+                <Button icon="sap-icon://decline" press="onClose"></Button>
             </contentRight>
         </Bar>
     </subHeader>
+    <Table id="EmgInfo" items="{/EmployeeInfoEmergencyContact}">
+        <columns>
+            <Column >
+                <Text text="EmployeeID_ID"></Text>
+            </Column>
+             <Column >
+                <Text text="ContactName"></Text>
+            </Column>
+             <Column >
+                <Text text="Relationship"></Text>
+            </Column>
+             <Column >
+                <Text text="ContactPhone"></Text>
+            </Column>
+             <Column >
+                <Text text="ContactEmail"></Text>
+            </Column>
+              <Column>
+            <Text text="Actions"/>
+        </Column>
+        </columns>
+        <ColumnListItem>
+            <cells>
+                <Text text="{EmployeeID}"/>
+                <Text text="{ContactName}"/>
+                <Text text="{Relationship}"/>
+                <Text text="{ContactPhone}"/>
+                <Text text="{ContactEmail}"/>
+                <HBox>
+                    <Button icon="sap-icon://delete" press="DeleteBtn" type="Reject"></Button>
+                </HBox>
+            </cells>
+        </ColumnListItem>
+    </Table>
     </Page>
 </mvc:View>
+

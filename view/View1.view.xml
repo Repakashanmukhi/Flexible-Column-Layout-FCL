@@ -4,10 +4,60 @@
     <Page id="page">
     <subHeader>
         <Bar >
+            <contentLeft>
+                <Title text="Emploee Information"></Title>
+            </contentLeft>
             <contentRight>
-                <Button text="Navigate to Middel Column" press="onNav" id="midView"></Button>
+                <Button text="Upload" press="handleUpload"></Button>
             </contentRight>
         </Bar>
     </subHeader>
+    <Table id="EmployeeInfo" items="{/EmployeeInfo}">
+        <columns>
+            <Column >
+                <Text text="EmpId"></Text>
+            </Column>
+             <Column >
+                <Text text="FirstName"></Text>
+            </Column>
+             <Column >
+                <Text text="Email"></Text>
+            </Column>
+             <Column >
+                <Text text="Phone"></Text>
+            </Column>
+             <Column >
+                <Text text="BloodGroup"></Text>
+            </Column>
+             <Column >
+                <Text text="Department"></Text>
+            </Column>
+             <Column >
+                <Text text="Position"></Text>
+            </Column>
+             <Column >
+                <Text text="Salary"></Text>
+            </Column>
+             <Column >
+                <Text text="JoiningDate"></Text>
+            </Column>
+        </columns> 
+        <ColumnListItem type="Navigation" press="onNav">
+            <cells>
+                <Text text="{ID}"/>
+                <Text text="{FirstName} {LastName}"/>
+                <Text text="{Email}"/>
+                <Text text="{Phone}"/>
+                <Text text="{BloodGroup}"/>
+                <Text text="{Department}"/>
+                <Text text="{Position}"/>
+                <Text text="{Salary}"/>
+                <!-- <Text text="{path: 'JoiningDate', formatter: '.formatter.formatJoiningDate'}" />  -->
+                <Text text="{path: 'JoiningDate', formatter: '.formatJoiningDate'}" />
+                </cells>
+            </ColumnListItem>
+    </Table>
     </Page>
 </mvc:View>
+
+
