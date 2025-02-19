@@ -59,7 +59,7 @@ sap.ui.define([
             var oModel = that.getOwnerComponent().getModel();
             oData.forEach(entry => {
                 var joiningdate = entry.JoiningDate;
-                joiningdate = new Date((joiningdate - 25569) * 86400 * 1000); 
+                joiningdate = new Date((joiningdate - 25569) * 86400 * 1000);
                 var year = joiningdate.getFullYear();
                 var month = ("0" + (joiningdate.getMonth() + 1)).slice(-2);
                 var day = ("0" + joiningdate.getDate()).slice(-2);
@@ -75,8 +75,9 @@ sap.ui.define([
                     filters: aFilters,
                     success: function (response) {
                         if (response.results && response.results.length > 0) {
-                        var existingRecord = response.results[0]; 
-                        console.log("Duplicate entries found ", entry);
+                            var existingRecord = response.results[0]; 
+                            console.log("Duplicate entries found in EmployeeInfo ", entry);
+                            // Create Employee Entry to update
                             var oEmployeeEntry = {
                                 ID: existingRecord.ID,
                                 FirstName: entry.FirstName,
@@ -98,8 +99,7 @@ sap.ui.define([
                                     console.log("Employee update failed:", error);
                                 }
                             });
-                        } 
-                        else {
+                        } else {
                             var oEmployeeEntry = {
                                 FirstName: entry.FirstName,
                                 LastName: entry.LastName,
@@ -124,52 +124,61 @@ sap.ui.define([
                         }
                     },
                 });
+                function handleEmergencyContact(entry, EmployeeID) {
+                    var oEmergency = {
+                        EmployeeID:   entry.EmployeeID,
+                        ContactName:  entry.ContactName, 
+                        Relationship: entry.Relationship,
+                        ContactPhone: entry.ContactPhone + "", 
+                        ContactEmail: entry.ContactEmail
+                    };
+                    var aContactFilters = [
+                        new sap.ui.model.Filter({
+                            path: 'EmployeeID', 
+                            operator: sap.ui.model.FilterOperator.EQ, 
+                            value1: EmployeeID
+                        }),
+                    ];
+                    oModel.read("/EmployeeInfoEmergencyContact", {
+                        filters: aContactFilters,
+                        success: function (response) {
+                            if (response.results && response.results.length > 0) {
+                                var existingContact = response.results[0];
+                                console.log("Duplicate entries found in EmergencyContact: ", entry);
+                                oModel.update("/EmployeeInfoEmergencyContact(" + existingContact.ID + ")", oEmergency, {
+                                    success: function (response) {
+                                        console.log("Emergency contact updated successfully");
+                                    },
+                                    error: function (error) {
+                                        console.log("Emergency contact update failed:", error);
+                                    }
+                                });
+                            } else {
+                                var oEmergencyContactEntry = {
+                                    EmployeeID:   entry.EmployeeID,
+                                    ContactName: entry.ContactName, 
+                                    Relationship: entry.Relationship,
+                                    ContactPhone: entry.ContactPhone + "", 
+                                    ContactEmail: entry.ContactEmail
+                                };
+                                oModel.create("/EmployeeInfoEmergencyContact", oEmergencyContactEntry, {
+                                    success: function (response) {
+                                        console.log("Emergency contact uploaded successfully");
+                                    },
+                                    error: function (error) {
+                                        console.log("Emergency contact upload failed: ", error);
+                                    }
+                                });
+                            }
+                        },
+                    });
+                }
             });
-            function handleEmergencyContact(entry, EmployeeID) {
-                var oEmergencyContactEntry = {
-                    EmployeeID:   entry.EmployeeID_ID,
-                    ContactName:  entry.ContactName, 
-                    Relationship: entry.Relationship,
-                    ContactPhone: entry.ContactPhone + "", 
-                    ContactEmail: entry.ContactEmail
-                };
-                var aContactFilters = [
-                    new sap.ui.model.Filter({
-                        path: 'EmployeeID', 
-                        operator: sap.ui.model.FilterOperator.EQ, 
-                        value1: EmployeeID
-                    }),
-                ];
-                oModel.read("/EmployeeInfoEmergencyContact", {
-                    filters: aContactFilters,
-                    success: function (response) {
-                        if (response.results && response.results.length > 0) {
-                        var existingContact = response.results[0]; 
-                            oModel.update("/EmployeeInfoEmergencyContact(" + existingContact.ID + ")", oEmergencyContactEntry, {
-                                success: function (response) {
-                                    console.log("Emergency contact updated successfully");
-                                },
-                                error: function (error) {
-                                    console.log("Emergency contact update failed:", error);
-                                }
-                            });
-                        } else {
-                            oModel.create("/EmployeeInfoEmergencyContact", oEmergencyContactEntry, {
-                                success: function (response) {
-                                    console.log("Emergency contact uploaded successfully");
-                                },
-                                error: function (error) {
-                                    console.log("Emergency contact upload failed: ", error);
-                                }
-                            });
-                        }
-                    },
-                });
-            }
-        }, 
+        },
         close: function() 
         {   
         that.upload.close();
         }
     });
 });
+

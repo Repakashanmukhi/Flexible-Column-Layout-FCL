@@ -15,9 +15,7 @@
     </subHeader>
     <Table id="EmgInfo" items="{/EmployeeInfoEmergencyContact}">
         <columns>
-            <Column >
-                <Text text="EmployeeID_ID"></Text>
-            </Column>
+            
              <Column >
                 <Text text="ContactName"></Text>
             </Column>
@@ -36,7 +34,6 @@
         </columns>
         <ColumnListItem>
             <cells>
-                <Text text="{EmployeeID}"/>
                 <Text text="{ContactName}"/>
                 <Text text="{Relationship}"/>
                 <Text text="{ContactPhone}"/>
