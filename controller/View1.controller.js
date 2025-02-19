@@ -99,18 +99,6 @@ sap.ui.define([
                                     console.log("Employee update failed:", error);
                                 }
                             });
-                        } else {
-                            var oEmployeeEntry = {
-                                FirstName: entry.FirstName,
-                                LastName: entry.LastName,
-                                Email: entry.Email,
-                                Phone: entry.Phone + "",
-                                BloodGroup: entry.BloodGroup,
-                                Department: entry.Department,
-                                Position: entry.Position,
-                                Salary: entry.Salary + "",
-                                JoiningDate: formattedJoiningDate 
-                            };
                             oModel.create("/EmployeeInfo", oEmployeeEntry, {
                                 success: function (response) {
                                     console.log("Employee upload successful: ", response);
@@ -156,7 +144,7 @@ sap.ui.define([
                             } else {
                                 var oEmergencyContactEntry = {
                                     EmployeeID:   entry.EmployeeID,
-                                    ContactName: entry.ContactName, 
+                                    ContactName:  entry.ContactName, 
                                     Relationship: entry.Relationship,
                                     ContactPhone: entry.ContactPhone + "", 
                                     ContactEmail: entry.ContactEmail
