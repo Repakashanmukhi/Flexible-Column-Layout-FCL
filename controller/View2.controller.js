@@ -6,11 +6,9 @@ sap.ui.define([
         onInit() {
             this.oEventBus = this.getOwnerComponent().getEventBus();
             this.oEventBus.subscribe("flexible", "setView2", this.onFirstRender, this);
-            this.isFirstRender = true; // Flag to track first render
+            this.isFirstRender = true; 
         },
-        // data: function(schannel, sEventId, oData){
-        //     var oId = oData;
-        // },
+       
         onClose: function(){
             this.oEventBus.publish("flexible", "setView1");
         },
@@ -47,10 +45,103 @@ sap.ui.define([
                 }
             }) 
         }, 
+                                                                        // To update the Employee Emergency data
+        // UpdateBtn: function(oEvent)
+        // {
+        //     if(!this.update)
+        //     {
+        //         this.update=sap.ui.xmlfragment("fcl.fragments.Update", this)
+        //     }
+        //     this.update.open();
+        //     var oContext = oEvent.getSource().getBindingContext().getObject(); 
+        //     sap.ui.getCore().byId("ContactName_E").setValue(oContext.ContactName);
+        //     sap.ui.getCore().byId("Email_E").setValue(oContext.ContactEmail);
+        //     sap.ui.getCore().byId("Phone_E").setValue(oContext.ContactPhone);
+        //     sap.ui.getCore().byId("Relationship_E").setValue(oContext.Relationship);
+        //     this.update.open();
+        // },
+        // onUpdateDialog: function()
+        // {
+        //     var sName = sap.ui.getCore().byId("ContactName_E").getValue();
+        //     var sMail = sap.ui.getCore().byId("Email_E").getValue();
+        //     var sPhone = sap.ui.getCore().byId("Phone_E").getValue();
+        //     var sRelationship = sap.ui.getCore().byId("Relationship_E").getValue();
+        //         var oUpdatedEmployee = {
+        //             ContactName:sName,
+        //             ContactEmail: sMail,
+        //             ContactPhone: sPhone,
+        //             Relationship: sRelationship
+        //         };
+        //         var oData = this.getOwnerComponent().getModel();
+        //         var updatePath = `/EmployeeInfoEmergencyContact('${sName}')`
+        //         oData.update(updatePath, oUpdatedEmployee,{
+        //             success: function()
+        //             {
+        //             },
+        //         error: function (error) 
+        //         {
+                
+        //         }   
+        //    })
+        //    this.update.close()
+        // },
+        // onCancleDialog: function()
+        // { 
+        //     this.update.close()
+        // },
+        // UpdateBtn: function(oEvent) {
+        //     if (!this.update) {
+        //         this.update = sap.ui.xmlfragment("fcl.fragments.Update", this);
+        //     }
+            
+        //     var oContext = oEvent.getSource().getBindingContext().getObject(); 
+            
+        //     // Save the ID to use during update
+        //     this._currentContactId = oContext.ID;
+        
+        //     sap.ui.getCore().byId("ContactName_E").setValue(oContext.ContactName);
+        //     sap.ui.getCore().byId("Email_E").setValue(oContext.ContactEmail);
+        //     sap.ui.getCore().byId("Phone_E").setValue(oContext.ContactPhone);
+        //     sap.ui.getCore().byId("Relationship_E").setValue(oContext.Relationship);
+            
+        //     this.update.open();
+        // },
+        
+        // onUpdateDialog: function() {
+        //     var sName = sap.ui.getCore().byId("ContactName_E").getValue();
+        //     var sMail = sap.ui.getCore().byId("Email_E").getValue();
+        //     var sPhone = sap.ui.getCore().byId("Phone_E").getValue();
+        //     var sRelationship = sap.ui.getCore().byId("Relationship_E").getValue();
+        
+        //     var oUpdatedEmployee = {
+        //         ContactName: sName,
+        //         ContactEmail: sMail,
+        //         ContactPhone: sPhone,
+        //         Relationship: sRelationship
+        //     };
+        
+        //     var oData = this.getOwnerComponent().getModel();
+        //     var updatePath = `/EmployeeInfoEmergencyContact(guid'${this._currentContactId}')`;
+        //     oData.update(updatePath, oUpdatedEmployee, {
+        //         success: function() {
+        //             sap.m.MessageToast.show("Update successful!");
+        //         },
+        //         error: function(error) {
+        //             sap.m.MessageBox.error("Update failed: " + error.message);
+        //         }
+        //     });
+        
+        //     this.update.close();
+        // },
+        
+        // onCancleDialog: function() {
+        //     this.update.close();
+        // }
+        
     });
-});
+}); 
     
-        // To create EmployeeInfoEmergencyContact records
+                                                                     // To create the Employee Emergency data
         // onOpenDialog: function()
         // {
         //     if(!that.Personalinfo)
@@ -86,5 +177,6 @@ sap.ui.define([
         // {
         //     that.Personalinfo.close()
         // }
-//     });
-// });
+        // });
+        // });
+        

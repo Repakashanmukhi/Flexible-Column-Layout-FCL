@@ -40,6 +40,7 @@
                 <Text text="{ContactEmail}"/>
                 <HBox>
                     <Button icon="sap-icon://delete" press="DeleteBtn" type="Reject"></Button>
+                    <Button icon="sap-icon://user-edit" class="sapUiTinyMarginEnd" press="UpdateBtn"></Button>
                 </HBox>
             </cells>
         </ColumnListItem>

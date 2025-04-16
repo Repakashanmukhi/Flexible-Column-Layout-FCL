@@ -30,7 +30,7 @@ sap.ui.define([
                     that.getView().addDependent(that.upload);
                 }
                 that.upload.open();
-        }, 
+        },                                                                      
         onFileChange: function(oEvent) 
         {
             var aFile = oEvent.getParameter("files");
@@ -38,12 +38,12 @@ sap.ui.define([
             {
                 var oFile = aFile[0];
                 var reader = new FileReader();
-                reader.onload = function(e) 
+                reader.onload = function(e)
                 {
                     var data = e.target.result;
                     var workbook = XLSX.read(data, { 
                         type: 'array'
-                     });
+                    });
                     var sheetNames = workbook.SheetNames;
                     var sheet = workbook.Sheets[sheetNames[0]];
                     var jsonData = XLSX.utils.sheet_to_json(sheet);
@@ -99,12 +99,24 @@ sap.ui.define([
                                     console.log("Employee update failed:", error);
                                 }
                             });
+                        } else {
+                            var oEmployeeEntry = {
+                                FirstName: entry.FirstName,
+                                LastName: entry.LastName,
+                                Email: entry.Email,
+                                Phone: entry.Phone + "",
+                                BloodGroup: entry.BloodGroup,
+                                Department: entry.Department,
+                                Position: entry.Position,
+                                Salary: entry.Salary + "",
+                                JoiningDate: formattedJoiningDate 
+                            };
                             oModel.create("/EmployeeInfo", oEmployeeEntry, {
                                 success: function (response) {
                                     console.log("Employee upload successful: ", response);
                                     var newEmployeeID = response.ID;
                                     handleEmergencyContact(entry, newEmployeeID);
-                                },
+                                }, 
                                 error: function (error) {
                                     console.log("Employee upload failed: ", error);
                                 }
@@ -143,8 +155,8 @@ sap.ui.define([
                                 });
                             } else {
                                 var oEmergencyContactEntry = {
-                                    EmployeeID:   entry.EmployeeID,
-                                    ContactName:  entry.ContactName, 
+                                   EmployeeID:   entry.EmployeeID,
+                                    ContactName: entry.ContactName, 
                                     Relationship: entry.Relationship,
                                     ContactPhone: entry.ContactPhone + "", 
                                     ContactEmail: entry.ContactEmail
@@ -169,4 +181,3 @@ sap.ui.define([
         }
     });
 });
-
