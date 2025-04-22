@@ -1,33 +1,40 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], (Controller,Filter,FilterOperator) => {
     "use strict";
+    var that;
     return Controller.extend("fcl.controller.View2", {
         onInit() {
+            that = this;
             this.oEventBus = this.getOwnerComponent().getEventBus();
-            this.oEventBus.subscribe("flexible", "setView2", this.onFirstRender, this);
-            this.isFirstRender = true; 
+            this.oEventBus.subscribe("flexible", "setView2", this.data, this);
         },
-       
         onClose: function(){
             this.oEventBus.publish("flexible", "setView1");
         },
-        onAfterRendering: function() {
-            if (this.isFirstRender) {
-                this.isFirstRender = false; 
-                this.onFirstRender(); 
-            }
-        },
-        onFirstRender: function(schannel,sEventId,oData) {
-            console.log("This is the first render!");
-            var oId=oData;
-            var oDetail= this.getOwnerComponent().getModel();
-            oDetail.read("/EmployeeInfoEmergencyContact", {
-                success:function(response){
-                var filteredData = response.results.filter(emp => emp.ID === oId)
+        data: function(sChannel, sEventId, oData) {
+            var oModel = this.getOwnerComponent().getModel();
+            
+            oModel.read("/EmployeeInfoEmergencyContact", {
+                filters: [
+                    new sap.ui.model.Filter("ContactEmail", sap.ui.model.FilterOperator.EQ, oData.Data.Email)
+                ],
+                success: (response) => {
+                    var filtered = response.results;
+                    console.log(filtered);
+                    var oModel = new sap.ui.model.json.JSONModel({
+                        items: filtered
+                    });
+                    this.getView().byId("EmgInfo").setModel(oModel); 
+                },
+                error: function(oError) {
+                    console.log("Error fetching data:", oError);
                 }
-            })
+            });
         },
+
         DeleteBtn: function(oEvent)
         {
             var oButton=oEvent.getSource();
@@ -45,7 +52,46 @@ sap.ui.define([
                 }
             }) 
         }, 
-                                                                        // To update the Employee Emergency data
+         onOpenDialog: function()
+        {
+            if(!this.Personalinfo)
+            {
+                this.Personalinfo = sap.ui.xmlfragment("fcl.fragments.Personal Info", this);
+                this.getView().addDependent(this.Personalinfo);
+            }
+            this.Personalinfo.open();
+        },
+        onSubmit: function(){
+            let oEmg = {
+                EmployeeID :sap.ui.getCore().byId("eEmployee_Id").getValue(),
+                ContactName :sap.ui.getCore().byId("eContactName").getValue(),
+                Relationship :sap.ui.getCore().byId("eRelationship").getValue(),
+                ContactPhone :sap.ui.getCore().byId("eContactPhone").getValue(),
+                ContactEmail: sap.ui.getCore().byId("eContactEmail").getValue()            
+            }
+            var oModel = this.getOwnerComponent().getModel();
+            oModel.create("/EmployeeInfoEmergencyContact",oEmg,{
+                success:function(response){
+
+                    sap.m.MessageToast.show("successfull");
+                    oModel.refresh();
+                },error:function(error){
+                    sap.m.MessageToast.show("Error");
+                    console.log(error);
+                }
+            })
+            this.Personalinfo.close();
+        },
+     
+        OnClose: function()
+        {
+            this.Personalinfo.close()
+        },
+        
+        
+    });
+}); 
+                                                                // To update the Employee Emergency data
         // UpdateBtn: function(oEvent)
         // {
         //     if(!this.update)
@@ -137,9 +183,6 @@ sap.ui.define([
         // onCancleDialog: function() {
         //     this.update.close();
         // }
-        
-    });
-}); 
     
                                                                      // To create the Employee Emergency data
         // onOpenDialog: function()

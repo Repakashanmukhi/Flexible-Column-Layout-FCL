@@ -10,9 +10,9 @@ sap.ui.define([
             that.oEventBus = that.getOwnerComponent().getEventBus();
         },
         onNav: function(oEvent){
-            var oItem = oEvent.getSource().getBindingContext().getProperty("ID");
+            var oItem = oEvent.getSource().getBindingContext().getProperty();
             that.oEventBus.publish("flexible","setView2",{
-                ID: oItem
+                Data: oItem
             });
         },
         formatJoiningDate: function (sDate) {
