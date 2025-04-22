@@ -14,25 +14,23 @@ sap.ui.define([
         onClose: function(){
             this.oEventBus.publish("flexible", "setView1");
         },
-        data: function(sChannel, sEventId, oData) {
-            var oModel = this.getOwnerComponent().getModel();
-            
-            oModel.read("/EmployeeInfoEmergencyContact", {
-                filters: [
-                    new sap.ui.model.Filter("ContactEmail", sap.ui.model.FilterOperator.EQ, oData.Data.Email)
+        data:function(sChannel, sEventId, oData){
+            var oModel =this.getOwnerComponent().getModel();
+            oModel.read("/EmployeeInfoEmergencyContact",{
+                filters:[
+                    new sap.ui.model.Filter("ContactEmail",sap.ui.model.FilterOperator.EQ, oData.Data.Email)
                 ],
-                success: (response) => {
+                success: (response) =>{
                     var filtered = response.results;
-                    console.log(filtered);
                     var oModel = new sap.ui.model.json.JSONModel({
                         items: filtered
                     });
-                    this.getView().byId("EmgInfo").setModel(oModel); 
+                    this.getView().byId("EmgInfo").setModel(oModel)
                 },
-                error: function(oError) {
-                    console.log("Error fetching data:", oError);
+                error: function(){
+                    console.log("error fetch the data")
                 }
-            });
+            })
         },
 
         DeleteBtn: function(oEvent)
@@ -91,6 +89,9 @@ sap.ui.define([
         
     });
 }); 
+
+
+
                                                                 // To update the Employee Emergency data
         // UpdateBtn: function(oEvent)
         // {
