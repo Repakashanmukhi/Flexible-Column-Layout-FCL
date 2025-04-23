@@ -32,7 +32,6 @@ sap.ui.define([
                 }
             })
         },
-
         DeleteBtn: function(oEvent)
         {
             var oButton=oEvent.getSource();
@@ -70,7 +69,6 @@ sap.ui.define([
             var oModel = this.getOwnerComponent().getModel();
             oModel.create("/EmployeeInfoEmergencyContact",oEmg,{
                 success:function(response){
-
                     sap.m.MessageToast.show("successfull");
                     oModel.refresh();
                 },error:function(error){
@@ -80,18 +78,12 @@ sap.ui.define([
             })
             this.Personalinfo.close();
         },
-     
         OnClose: function()
         {
             this.Personalinfo.close()
         },
-        
-        
     });
-}); 
-
-
-
+});  
                                                                 // To update the Employee Emergency data
         // UpdateBtn: function(oEvent)
         // {
@@ -184,7 +176,6 @@ sap.ui.define([
         // onCancleDialog: function() {
         //     this.update.close();
         // }
-    
                                                                      // To create the Employee Emergency data
         // onOpenDialog: function()
         // {
@@ -206,7 +197,7 @@ sap.ui.define([
         //     var oModel = that.getOwnerComponent().getModel();
         //     oModel.create("/EmployeeInfoEmergencyContact",oEmg,{
         //         success:function(response){
-
+        
         //             sap.m.MessageToast.show("successfull");
         //             oModel.refresh();
         //         },error:function(error){
