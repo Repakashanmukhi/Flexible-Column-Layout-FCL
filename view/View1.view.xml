@@ -5,7 +5,7 @@
     <subHeader>
         <Bar >
             <contentLeft>
-                <Title text="Emploee Information"></Title>
+                <Title text="Employee Information"></Title>
             </contentLeft>
             <contentRight>
                 <Button text="Upload" press="handleUpload"></Button>
