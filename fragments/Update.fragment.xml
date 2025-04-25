@@ -3,6 +3,8 @@ xmlns="sap.m">
 <Dialog id="update" title="Update Details" >
           
                <VBox class="sapUiTinyMargin" >
+                    <Label text="Employee ID" />
+                    <Input id="EmployeeID_E" width="250px" editable="true"/>
                     <Label text="Contact Name" />
                     <Input id="ContactName_E" width="250px" editable="true"/>
                     <Label text="Phone"/>

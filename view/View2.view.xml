@@ -13,7 +13,7 @@
                 </contentRight>
             </Bar>
         </subHeader>
-        <Table id="EmgInfo" items="{/items}"> 
+        <Table id="EmgInfo" items="{EmergencyModel>/items}">
             <columns>
                 <Column>
                     <Text text="ContactName"></Text>
@@ -33,10 +33,10 @@
             </columns>
             <ColumnListItem>
                 <cells>
-                    <Text text="{ContactName}"/>
-                    <Text text="{Relationship}"/>
-                    <Text text="{ContactPhone}"/>
-                    <Text text="{ContactEmail}"/>
+                    <Text text="{EmergencyModel>ContactName}"/>
+                    <Text text="{EmergencyModel>Relationship}"/>
+                    <Text text="{EmergencyModel>ContactPhone}"/>
+                    <Text text="{EmergencyModel>ContactEmail}"/>
                     <HBox>
                         <Button icon="sap-icon://delete" press="DeleteBtn" type="Reject"></Button>
                         <Button icon="sap-icon://user-edit" class="sapUiTinyMarginEnd" press="UpdateBtn"></Button>
@@ -46,4 +46,3 @@
         </Table>
     </Page>
 </mvc:View>
-
